@@ -78,6 +78,17 @@ final class DecisionViewModel: ObservableObject {
             )
         }
     }
+    
+    // MARK: - Sample Decision
+    func fillDinnerSample() {
+        topic = "晚餐吃什麼？"
+        options = [
+            OptionItem(text: "火鍋"),
+            OptionItem(text: "漢堡"),
+            OptionItem(text: "拉麵")
+        ]
+        result = ""
+    }
 
     // MARK: - Random Pick
     func pickRandomOption() {

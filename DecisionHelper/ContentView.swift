@@ -82,6 +82,21 @@ struct ContentView: View {
                             .font(.largeTitle)
                             .fontWeight(.bold)
                         
+                        Button {
+                            viewModel.fillDinnerSample()
+                        } label: {
+                            HStack {
+                                Image(systemName: "sparkles")
+                                Text("使用範例選單")
+                            }
+                            .font(.subheadline)
+                            .padding(.vertical, 8)
+                            .padding(.horizontal, 12)
+                            .background(Color.blue.opacity(0.1))
+                            .cornerRadius(8)
+                        }
+
+                        
                         TextField("主題（例如：晚餐吃什麼？）", text: $viewModel.topic)
                             .textFieldStyle(.roundedBorder)
                         
@@ -148,7 +163,7 @@ struct ContentView: View {
                          }
                          }*/
                         // 儲存按鈕
-                        Button("儲存這組選項") {
+                        Button("儲存選單") {
                             isSavingNewDecision = true
                             activeSheet = .saveToFolder
                         }
@@ -174,7 +189,7 @@ struct ContentView: View {
             }
             .padding()
             // 已儲存清單的按鈕
-            Button("📂 已儲存清單") {
+            Button("📂 已儲存選單") {
                 activeSheet = .savedList
             }
             // 顯示清單的畫面

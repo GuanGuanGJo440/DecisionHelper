@@ -30,7 +30,7 @@ struct SavedDecisionListView: View {
     var body: some View {
         List {
             //if let favorite = viewModel.favoriteFolder {
-                Section("⭐️ 我的最愛") {
+                Section("❤️ 我的最愛") {
                     FavoriteDecisionListView(
                         decisions: viewModel.favoriteDecisions,
                         onSelectDecision: onSelectDecision,
@@ -105,6 +105,6 @@ struct SavedDecisionListView: View {
                 }
             }
         }
-        .navigationTitle("已儲存清單")
+        .navigationTitle("已儲存選單")
     }
 }
