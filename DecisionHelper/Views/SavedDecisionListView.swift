@@ -1,9 +1,3 @@
-//
-//  SavedDecisionListView.swift
-//  DecisionHelper
-//
-//  Created by 關關的m4 macbook pro on 2025/12/26.
-//
 import SwiftUI
 
 struct SavedDecisionListView: View {
@@ -13,6 +7,7 @@ struct SavedDecisionListView: View {
     // decision 操作
     let onSelectDecision: (DecisionSet) -> Void
     let onEditDecision: (DecisionSet) -> Void
+    let onImportDecision: (DecisionSet) -> Void
     let onMoveDecision: (DecisionSet) -> Void
     let onDeleteDecision: (UUID, IndexSet) -> Void
     
@@ -26,6 +21,36 @@ struct SavedDecisionListView: View {
     
     @State private var renamingFolderID: UUID?
     @State private var newFolderName: String = ""
+    
+    // 加入 importCSV 後會跳出 EditDecisionView 的狀態
+    @State private var showImportCSV = false
+    @State private var navigateToEdit = false
+    @State private var importedDecisionID: UUID?
+    
+    // 這樣就不用管 ContentView 裡面的順序了
+    init(
+        viewModel: DecisionViewModel,
+        onSelectDecision: @escaping (DecisionSet) -> Void,
+        onEditDecision: @escaping (DecisionSet) -> Void,
+        onImportDecision: @escaping (DecisionSet) -> Void,
+        onMoveDecision: @escaping (DecisionSet) -> Void,
+        onDeleteDecision: @escaping (UUID, IndexSet) -> Void,
+        onAddSubfolder: @escaping (UUID) -> Void,
+        onRenameFolder: @escaping (UUID, String) -> Void,
+        onDeleteFolder: @escaping (UUID) -> Void,
+        onAddToFavorite: @escaping (DecisionSet) -> Void
+    ) {
+        self.viewModel = viewModel
+        self.onSelectDecision = onSelectDecision
+        self.onEditDecision = onEditDecision
+        self.onImportDecision = onImportDecision
+        self.onMoveDecision = onMoveDecision
+        self.onDeleteDecision = onDeleteDecision
+        self.onAddSubfolder = onAddSubfolder
+        self.onRenameFolder = onRenameFolder
+        self.onDeleteFolder = onDeleteFolder
+        self.onAddToFavorite = onAddToFavorite
+    }
     
     var body: some View {
         List {
@@ -105,6 +130,22 @@ struct SavedDecisionListView: View {
                 }
             }
         }
+        
         .navigationTitle("已儲存選單")
+        Button("匯入 CSV") {
+            showImportCSV = true
+        }
+        .sheet(isPresented: $showImportCSV) {
+            ImportCSVView { imported in
+                let decision = DecisionSet(
+                    id: UUID(),
+                    topic: imported.title,
+                    options: imported.options
+                )
+
+                showImportCSV = false
+                onImportDecision(decision)
+            }
+        }
     }
 }

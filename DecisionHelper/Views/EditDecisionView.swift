@@ -1,9 +1,3 @@
-//
-//  EditDecisionView.swift
-//  DecisionHelper
-//
-//  Created by 關關的m4 macbook pro on 2025/12/27.
-//
 import SwiftUI
 
 struct EditDecisionView: View {

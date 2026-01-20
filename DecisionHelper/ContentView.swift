@@ -1,10 +1,3 @@
-//
-//  ContentView.swift
-//  DecisionHelper
-//
-//  Created by 關關的m4 macbook pro on 2025/12/24.
-//
-
 import SwiftUI
 
 // 定義一個 sheet 類型
@@ -205,6 +198,9 @@ struct ContentView: View {
                             },
                             onEditDecision: { decision in
                                 activeSheet = .editDecision(decision)
+                            },
+                            onImportDecision: { importedDecision in
+                                activeSheet = .editDecision(importedDecision)
                             },
                             onMoveDecision: { decision in
                                 decisionToMove = decision

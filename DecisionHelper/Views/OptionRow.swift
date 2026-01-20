@@ -1,9 +1,3 @@
-//
-//  OptionRow.swift
-//  DecisionHelper
-//
-//  Created by 關關的m4 macbook pro on 2025/12/26.
-//
 import SwiftUI
 
 // SwiftUI 的 ForEach 一定要知道每一列是誰

@@ -1,10 +1,3 @@
-//
-//  DecisionViewModel.swift
-//  DecisionHelper
-//
-//  Created by 關關的m4 macbook pro on 2025/12/28.
-//
-
 import Foundation
 import Combine
 import SwiftUI
@@ -135,6 +128,18 @@ final class DecisionViewModel: ObservableObject {
         if deleteDecisionRecursive(folderID: folderID, offsets: offsets, in: &folders) {
             persist()
         }
+    }
+    
+    // MARK: - Import Decision
+    func importDecision(from imported: ImportedDecision, to folderID: UUID) -> DecisionSet {
+        let decision = DecisionSet(
+            id: UUID(),
+            topic: imported.title,
+            options: imported.options
+        )
+
+        addDecision(decision, to: folderID)
+        return decision
     }
 
     // MARK: - Folder Management
@@ -452,5 +457,16 @@ private extension DecisionViewModel {
         }
 
         return decoded
+    }
+}
+
+// 外部資料轉換器
+extension ImportedDecision {
+    func toDecisionSet() -> DecisionSet {
+        DecisionSet(
+            id: UUID(),
+            topic: title,
+            options: options
+        )
     }
 }
